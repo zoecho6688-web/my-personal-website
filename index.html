@@ -30,11 +30,34 @@
             margin: 0;
             font-size: 2.5rem;
         }
+        .button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            font-size: 1rem;
+            color: white;
+            background-color: #ff4757; /* 和文字颜色一致 */
+            border: none;
+            border-radius: 50px; /* 胶囊形状 */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s active;
+        }
+        .button:hover {
+            background-color: #ff6b81; /* 鼠标悬停时颜色变浅 */
+        }
+        .button:active {
+            transform: scale(0.95); /* 点击时按钮缩小 */
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>爱你❤️宝宝</h1>
+        <button class="button" onclick="showMessage()">点我有惊喜</button>
     </div>
 </body>
+<script>
+    function showMessage() {
+        alert("今天也要开心哦！✨");
+    }
+</script>
 </html>

@@ -43,8 +43,42 @@
                 <a href="mailto:zoecho6688@gmail.com?subject=来自你网站的打招呼" class="social-btn" style="background: #3498db; color: white; padding: 8px 15px; border-radius: 20px; font-size: 14px; text-decoration: none;">发邮件</a>
             </div>
         </div>
+        <div class="guestbook" style="margin-top: 20px; padding: 15px; border-top: 1px dashed #eee;">
+             <p style="font-size: 0.9rem; font-weight: bold; color: #333; margin-bottom: 10px;">给 Zoe 留言吧 ✨</p>
+    
+            <textarea id="messageInput" placeholder="想对我说什么..." style="width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ddd; margin-bottom: 10px; font-family: inherit; box-sizing: border-box;"></textarea>
+    
+             <button onclick="submitMessage()" style="background: #ffb6c1; color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; width: 100%;">发送留言</button>
+    
+            <div id="messageBoard" style="margin-top: 15px; font-size: 0.85rem; color: #666; background: #f9f9f9; border-radius: 5px;"></div>
+        </div>
         <p>❤️今天也要亲亲你❤️</p>
         <a href="index.html">点击这里返回首页</a>
     </div>
+<script>
+function submitMessage() {
+    // 1. 获取输入框和留言板
+    const input = document.getElementById('messageInput');
+    const board = document.getElementById('messageBoard');
+    
+    // 2. 检查有没有写内容
+    if (input.value.trim() === "") {
+        alert("你还没写内容呢~ 🥺");
+        return;
+    }
+    
+    // 3. 把留言展示出来
+    const newMsg = document.createElement('p');
+    newMsg.style.padding = "5px 10px";
+    newMsg.style.borderBottom = "1px solid #eee";
+    newMsg.innerHTML = "💬 " + input.value;
+    
+    board.appendChild(newMsg);
+    
+    // 4. 弹出提示并清空
+    alert("收到啦！虽然刷新会消失，但 Zoe 已经读到你的心意了 ❤️");
+    input.value = "";
+}
+</script>
 </body>
 </html>

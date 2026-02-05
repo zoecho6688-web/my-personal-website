@@ -28,7 +28,7 @@
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="card" id="myCard">
         <h1>我想你 😘</h1>
         <img src="me.png" alt="想你" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin: 20px 0; border: 3px solid #f0f0f0;">
         
@@ -46,19 +46,19 @@
         <button onclick="changeBg()" style="margin-top: 20px; background: #eee; border: 1px solid #ccc; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
                 点我换个心情 ✨
         </button>
-        <a href="index.html">点击这里返回首页</a>
+        <br> <a href="index.html">点击这里返回首页</a>
     </div>
-</body>
-<script>
+    <script>
     function changeBg() {
         // 准备一组你喜欢的颜色
-        var colors = ['#FFF5F5', '#F0FFF4', '#EBF8FF', '#FFFAF0', '#F5F5F5'];
+        var colors = ['FFF0F5', '#F0FFF4', '#EBF8FF', '#FFFAF0', '#F5F5F5'];
     
         // 随机选一个颜色
         var randomColor = colors[Math.floor(Math.random() * colors.length)];
     
         // 把网页背景（body）换成这个颜色
-        document.body.style.backgroundColor = randomColor;
+        document.getElementById('myCard').style.backgroundColor = randomColor;
     }
-</script>
+    </script>
+</body>
 </html>

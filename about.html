@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我想你</title>
-    <style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+   
+   <style>
         :root {
             /* 默认是白天模式的颜色 */
             --bg-color-1: #ee7752;
@@ -30,6 +34,8 @@
         }
         /* 然后把你的 body 和 card 里的固定颜色换成变量 */
         body {
+            font-family: 'Poppins', sans-serif;
+
             background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3));
             background-size: 400% 400%; /* 把背景放大到 4 倍，这样才有流动的空间 */
             /* 这样背景就会跟着变量走 */
@@ -68,6 +74,14 @@
             
             /* 3. 边框发光：让玻璃的边缘在悬浮时更亮一点 */
             border: 1px solid rgba(255, 255, 255, 0.5); 
+        }
+        .card h1 {
+            font-weight: 600; /* 标题加粗，更有视觉重点 */
+            letter-spacing: 1px; /* 字母间距稍微拉开，更有设计感 */
+        }
+
+        .card p {
+            font-weight: 300; /* 正文用细体，显得更精致 */
         }
         a {
             display: inline-block;

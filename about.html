@@ -2,28 +2,119 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我想你</title>
     <style>
-        body {
-            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Microsoft YaHei', sans-serif;
+        :root {
+            /* 默认是白天模式的颜色 */
+            --bg-color-1: #ee7752;
+            --bg-color-2: #e73c7e;
+            --bg-color-3: #23a6d5;
+
+            --bg-color: #f0f2f5; /* 保底色 */
+            --card-bg: rgba(255, 255, 255, 0.3);
+            --text-color: #333;
         }
+        [data-theme="dark"] {
+            /* 黑夜模式下的颜色 */
+            --bg-color-1: #0f2027;
+            --bg-color-2: #203a43;
+            --bg-color-3: #2c5364;
+            
+            --bg-color: #1a1a1a; /* 保底色 */
+            --card-bg: rgba(0,0,0,0.3);
+            --text-color: #f0f2f5;
+        }
+        [data-theme="dark"] button {
+            border: 1px solid var(--text-color);
+        }
+        /* 然后把你的 body 和 card 里的固定颜色换成变量 */
+        body {
+            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3));
+            background-size: 400% 400%; /* 把背景放大到 4 倍，这样才有流动的空间 */
+            /* 这样背景就会跟着变量走 */
+            animation: gradientMove 15s ease infinite;
+            color: var(--text-color);
+            transition: all 0.5s ease; /* 让变色过程丝滑一点 */
+            display: flex;             /* 开启弹性布局 */
+            justify-content: center;    /* 水平居中 */
+            align-items: center;        /* 垂直居中 */
+            min-height: 100vh;          /* 让 body 至少跟屏幕一样高，否则垂直居中没参照 */
+            margin: 0;
+        }
+
         .card {
-            background: white;
+            width: 450px; /* 电脑端给它一个精致的宽度 */
+            max-width: 90%; /* 防止在大屏幕的小窗口下溢出 */
+            background: var(--card-bg);
+            /* 核心：添加模糊滤镜 */
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); /* 兼容苹果浏览器 */
             padding: 2rem;
             border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            color: var(--text-color);
+            transition: all 0.4s ease;
             text-align: center;
         }
+        .card:hover {
+            /* 1. 向上位移：让卡片往 y 轴负方向（向上）移动 10 像素 */
+            transform: translateY(-10px); 
+            
+            /* 2. 增强阴影：模拟卡片离桌面变远，阴影变得更深、更模糊 */
+            /* 语法：水平 垂直 模糊 扩散 颜色 */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); 
+            
+            /* 3. 边框发光：让玻璃的边缘在悬浮时更亮一点 */
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+        }
         a {
-            color: #3498db;
+            display: inline-block;
+            margin-top: 20px;
+            color: #58a6ff;
             text-decoration: none;
             font-weight: bold;
+        }
+        a:hover {
+            transform: scale(1.1);
+    
+            /* 颜色变亮一点 */
+            color: #8ab4f8; 
+            
+            /* 加上一点文字发光效果 */
+            text-shadow: 0 0 8px rgba(138, 180, 248, 0.6);
+        }
+       @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        /* 当屏幕宽度小于 600px 时（典型的手机环境） */
+        @media (max-width: 600px) {
+            .card {
+                width: 95%;          /* 手机上卡片几乎占满，留一点点呼吸缝隙 */
+                padding: 1.5rem;      /* 稍微缩小卡片内边距，给按钮留空间 */
+                border-radius: 0;
+            }
+
+            button {
+                width: 100% !important;  /* 按钮变霸道，横跨整行 */
+                padding: 20px !important; /* 按钮变厚，非常适合手指点击 */
+                font-size: 1.2rem !important; /* 字体调大，清晰易读 */
+                margin-top: 10px;
+            }
+            a {
+                display: block;      /* 让链接也变成一整行 */
+                margin-top: 20px !important;    /* 给它留出间距，别跟按钮挤在一起 */
+                text-align: center;  /* 文字居中 */
+             }
         }
     </style>
 </head>
@@ -46,6 +137,9 @@
         <button onclick="changeBg()" style="margin-top: 20px; background: #eee; border: 1px solid #ccc; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
                 点我换个心情 ✨
         </button>
+        <button onclick="toggleDarkMode()" style="background-color: #333; color: white;">
+            🌙 切换模式
+        </button>
         <br> <a href="index.html">点击这里返回首页</a>
     </div>
     <script>
@@ -58,6 +152,19 @@
     
         // 把网页背景（body）换成这个颜色
         document.getElementById('myCard').style.backgroundColor = randomColor;
+    }
+    function toggleDarkMode() {
+        // 找到网页的最顶层元素 (html)
+        const root = document.documentElement;
+        
+        // 检查现在是不是黑夜模式
+        if (root.getAttribute('data-theme') === 'dark') {
+            // 如果是，就换回白天
+            root.removeAttribute('data-theme');
+        } else {
+            // 如果不是，就换成黑夜
+            root.setAttribute('data-theme', 'dark');
+        }
     }
     </script>
 </body>

@@ -64,6 +64,12 @@
             transition: all 0.4s ease;
             text-align: center;
         }
+        /* 专门针对嵌套在 card 里面的 card */
+        .card .card {
+            background: rgba(255, 255, 255, 0.05); /* 极淡的颜色 */
+            box-shadow: none; /* 去掉阴影，避免脏兮兮的感觉 */
+            backdrop-filter: none; /* 内部不需要再次模糊 */
+        }
         .card:hover {
             /* 1. 向上位移：让卡片往 y 轴负方向（向上）移动 10 像素 */
             transform: translateY(-10px); 

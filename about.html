@@ -194,16 +194,23 @@
     }
     async function fetchQuote() {
         try {
-            // 1. 派服务员去这个网址“拿”数据
-            const response = await fetch('https://api.quotable.io/random');
-            const data = await response.json();
+            // 尝试换成这个更现代、稳定的 API
+            const response = await fetch('https://api.freeapi.app/api/v1/public/quotes/quote/random');
+            const result = await response.json();
 
-            // 2. 把拿回来的名言塞进刚才准备好的 HTML 位置
-            document.getElementById('quote-text').innerText = `“${data.content}”`;
-            document.getElementById('quote-author').innerText = `—— ${data.author}`;
+            // 注意：不同的 API 返回的数据结构（名字）不一样
+            // 这个 API 的名言在 result.data.content，作者在 result.data.author
+            document.getElementById('quote-text').innerText = `“${result.data.content}”`;
+            document.getElementById('quote-author').innerText = `—— ${result.data.author}`;
         } catch (error) {
-            // 如果网络出错了，显示默认文字
-            document.getElementById('quote-text').innerText = "生活不只有代码，还有诗和远方。";
+            // 如果上面那个也失败了，我们试试最简单的随机名言（无须网络，作为保底）
+            const localQuotes = [
+                { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+                { text: "Code is like humor. When you have to explain it, it’s bad.", author: "Cory House" }
+            ];
+            const random = localQuotes[Math.floor(Math.random() * localQuotes.length)];
+            document.getElementById('quote-text').innerText = `“${random.text}”`;
+            document.getElementById('quote-author').innerText = `—— ${random.author}`;
         }
     }
 
